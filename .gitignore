@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+
+# Virtual env
+venv/
+.venv/
+ENV/
+env/
+
+# Flask
+instance/
+.webassets-cache
+
+# Logs
+*.log
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Jupyter (kalau ada)
+.ipynb_checkpoints/
+
+# dotenv / secrets
+.env
+.env.*

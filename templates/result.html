@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hasil Perhitungan M/M/2</title>
+  <style>
+    body{font-family:Arial, sans-serif; max-width:900px; margin:30px auto; padding:0 16px; line-height:1.5;}
+    .card{border:1px solid #ddd; border-radius:10px; padding:16px; margin:12px 0;}
+    code{background:#f5f5f5; padding:2px 6px; border-radius:6px;}
+    .grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+    a.button{display:inline-block; padding:10px 14px; border:1px solid #333; border-radius:8px; text-decoration:none; color:#111;}
+    table{width:100%; border-collapse:collapse;}
+    td,th{border-bottom:1px solid #eee; padding:8px 6px; text-align:left;}
+  </style>
+</head>
+<body>
+  <h1>Hasil Perhitungan Sistem Antrian M/M/2</h1>
+
+  <div class="card">
+    <h2>Input</h2>
+    <div class="grid">
+      <div>Waktu antar kedatangan: <b>{{ fmt(data.input.interarrival_min) }}</b> menit</div>
+      <div>Waktu pelayanan per loket: <b>{{ fmt(data.input.service_min) }}</b> menit</div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Langkah-langkah Perhitungan</h2>
+
+    {% for step in data.langkah %}
+      <div style="margin-bottom:14px;">
+        <b>{{ loop.index }}. {{ step.judul }}</b><br/>
+        Rumus: <code>{{ step.rumus }}</code><br/>
+        Substitusi:
+        <div style="margin-top:6px; padding:10px; border:1px solid #eee; border-radius:10px; background:#fafafa;">
+            {% for line in step.substitusi_lines %}
+            <div><code>{{ line }}</code></div>
+            {% endfor %}
+        </div>
+        Hasil: <b>{{ step.hasil|round(pembulatan) }}</b>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="card">
+    <h2>Ringkasan Hasil Akhir</h2>
+    <table>
+      <tr><th>Parameter</th><th>Nilai</th><th>Satuan</th></tr>
+      <tr><td>λ</td><td><b>{{ data.hasil.lambda|round(pembulatan) }}</b></td><td>pelanggan/menit</td></tr>
+      <tr><td>μ</td><td><b>{{ data.hasil.mu|round(pembulatan) }}</b></td><td>pelanggan/menit (per loket)</td></tr>
+      <tr><td>ρ</td><td><b>{{ data.hasil.rho|round(pembulatan) }}</b></td><td>-</td></tr>
+      <tr><td>W</td><td><b>{{ data.hasil.W|round(pembulatan) }}</b></td><td>menit</td></tr>
+      <tr><td>Wq</td><td><b>{{ data.hasil.Wq|round(pembulatan) }}</b></td><td>menit</td></tr>
+    </table>
+
+    <p style="margin-top:10px;">
+      <b>Catatan:</b> W = waktu total di sistem (menunggu + dilayani), sedangkan Wq = waktu menunggu saja.
+    </p>
+  </div>
+
+  <a class="button" href="/">← Kembali ke input</a>
+</body>
+</html>

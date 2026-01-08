@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kalkulator Antrian M/M/2</title>
+  <style>
+    body{font-family:Arial, sans-serif; max-width:900px; margin:30px auto; padding:0 16px; line-height:1.5;}
+    .card{border:1px solid #ddd; border-radius:10px; padding:16px; margin:12px 0;}
+    label{display:block; margin:10px 0 6px;}
+    input{width:100%; padding:10px; border:1px solid #ccc; border-radius:8px;}
+    button{padding:10px 14px; border:0; border-radius:8px; cursor:pointer;}
+    .error{background:#ffecec; border:1px solid #ffb3b3; padding:12px; border-radius:10px;}
+    .hint{color:#555; font-size:0.95em;}
+  </style>
+</head>
+<body>
+  <h1>Kalkulator Sistem Antrian M/M/2</h1>
+  <p class="hint">
+    Masukkan waktu dalam satuan <b>menit</b>. Aplikasi akan menampilkan langkah hitung (rumus → substitusi → hasil).
+  </p>
+
+  {% if error %}
+    <div class="error"><b>Error:</b> {{ error }}</div>
+  {% endif %}
+
+  <div class="card">
+    <form method="post" action="/">
+      <label for="interarrival_min">Waktu antar kedatangan (menit)</label>
+      <input id="interarrival_min" name="interarrival_min" type="number" step="any" min="0"
+             value="{{ interarrival_min if interarrival_min is defined else '' }}"
+             placeholder="Contoh: 4" required>
+
+      <label for="service_min">Waktu pelayanan per loket (menit)</label>
+      <input id="service_min" name="service_min" type="number" step="any" min="0"
+             value="{{ service_min if service_min is defined else '' }}"
+             placeholder="Contoh: 3" required>
+
+      <div style="margin-top:14px;">
+        <button type="submit">Hitung</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <b>Contoh input dari soal:</b>
+    <ul>
+      <li>Antar kedatangan = 4 menit</li>
+      <li>Pelayanan = 3 menit</li>
+    </ul>
+  </div>
+</body>
+</html>
